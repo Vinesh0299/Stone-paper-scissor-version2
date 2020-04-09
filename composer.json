@@ -1,0 +1,10 @@
+{
+    "name": "vinesh/stonepaperscissorbackend",
+    "authors": [
+        {
+            "name": "Vinesh",
+            "email": "Vinesh.katewa@gmail.com"
+        }
+    ],
+    "require": {}
+}
