@@ -1,19 +1,21 @@
-// Defining a XMLHttpRequest varaiable and tournamentResult to store the data of each tournament
-var request = new XMLHttpRequest();
+// Defining a variable to store information of tournament
 var tournamentResult = [];
 
-// Making a request to the URL
-request.open('GET', 'http://localhost:8000');
-
-// Getting data from url and applying operations on it
-request.onload = function() {
-    var data = JSON.parse(this.response);
-
-    if(request.status == 200) {
-        data.forEach(round => {
-            tournamentResult.push(round);
-        });
-    }
+// Initializing all the rounds
+for(var i = 0; i < 50; i++) {
+    tournamentResult.push({
+        player1: 0,
+        player2: 0,
+        player3: 0,
+        player4: 0,
+    });
 }
 
-request.send();
+// Creating a fetch request and getting the json data saved in a global array named tournamentResult
+fetch('http://localhost:8000')
+.then(data => data.json())
+.then((data) => {
+    for(var i = 0; i < data.length; i++) {
+        tournamentResult[i] = Object.assign({}, data[i]);
+    }
+});
