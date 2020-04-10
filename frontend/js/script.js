@@ -1,49 +1,60 @@
-// Defining a variable to store information of tournament
-var tournamentResult = [];
-
-// Initializing all the rounds
-for(var i = 0; i < 50; i++) {
-    tournamentResult.push({
-        player1: 0,
-        player2: 0,
-        player3: 0,
-        player4: 0,
-    });
-}
-
 // Creating a fetch request and getting the json data saved in a global array named tournamentResult
 fetch('http://localhost:8000')
 .then(data => data.json())
 .then((data) => {
-    for(var i = 0; i < data.length; i++) {
-        tournamentResult[i] = Object.assign({}, data[i]);
-    }
+    localStorage.setItem('data', JSON.stringify(data));
+}).catch((error) => {
+    console.log('Error' + error);
 });
 
 // Getting DOM elements from HTML
 var choices = document.getElementById('choices');
-var data = document.getElementById('data');
+var content = document.getElementById('data');
 var row1 = document.getElementById('row1');
 var row2 = document.getElementById('row2');
 var all = document.getElementById('all');
 
 images = ['rock.png', 'paper.png', 'scissors.png'];
 
-data = {}
-data.player1 = 1;
-data.player2 = 2;
-data.player3 = 3;
-data.player4 = 1;
+function wins(player1, player2, num1, num2) {
+    win = player1 + " beats " + player2;
+    loss = player1 + " loses to " + player2;
+    draw = player1 + " and " + player2 + " had same choices. Its a draw";
+    if(num1 == 1) {
+        if(num2 == 2) return loss;
+        else if(num2 == 3) return win;
+        else return draw;
+    } else if(num1 == 2) {
+        if(num2 == 3) return loss;
+        else if(num2 == 1) return win;
+        else return draw;
+    } else {
+        if(num2 == 1) return loss;
+        else if(num2 == 2) return win;
+        else return draw;
+    }
+}
+
+tournamentResult = JSON.parse(localStorage.getItem('data'));
+localStorage.clear();
 
 function setContent(i) {
     var html = '';
-    var data1 = tournamentResult[i];
+    var data = tournamentResult[i];
+    html += '<p>' + wins("player1", "player2", data.player1, data.player2) + '</p>';
+    html += '<p>' + wins("player1", "player3", data.player1, data.player3) + '</p>';
+    html += '<p>' + wins("player1", "player4", data.player1, data.player4) + '</p>';
+    html += '<p>' + wins("player2", "player3", data.player2, data.player3) + '</p>';
+    html += '<p>' + wins("player2", "player4", data.player2, data.player4) + '</p>';
+    html += '<p>' + wins("player3", "player4", data.player3, data.player4) + '</p>';
+
+    content.innerHTML = html;
 }
 
 function roundResult(i) {
     var html1 = '';
     var html2 = '';
-    var data1 = tournamentResult[i];
+    var data = tournamentResult[i];
     html1 += '<div><div>Player1</div><img src="images/' + images[data.player1-1] + '"></div>';
     html1 += '<div><div>Player2</div><img src="images/' + images[data.player2-1] + '"></div>';
     html2 += '<div><div>Player3</div><img src="images/' + images[data.player3-1] + '"></div>';

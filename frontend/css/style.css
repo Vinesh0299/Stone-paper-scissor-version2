@@ -38,3 +38,7 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+#data {
+    margin-top: 10%;
+}
