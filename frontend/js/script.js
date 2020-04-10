@@ -14,8 +14,10 @@ var row1 = document.getElementById('row1');
 var row2 = document.getElementById('row2');
 var all = document.getElementById('all');
 
+// Storing the names of all pictures required in this application
 images = ['rock.png', 'paper.png', 'scissors.png'];
 
+// This function returns a string containing the result of a round between two individuals
 function wins(player1, player2, num1, num2) {
     win = player1 + " beats " + player2;
     loss = player1 + " loses to " + player2;
@@ -35,9 +37,11 @@ function wins(player1, player2, num1, num2) {
     }
 }
 
+// Getting data from localstorage and clearing it
 tournamentResult = JSON.parse(localStorage.getItem('data'));
 localStorage.clear();
 
+// This function sets the content on right hand side which contain details regarding each round
 function setContent(i) {
     var html = '';
     var data = tournamentResult[i];
@@ -51,6 +55,7 @@ function setContent(i) {
     content.innerHTML = html;
 }
 
+// Updates the pictures showing choices of each player and calls the setContent function to update the details
 function roundResult(i) {
     var html1 = '';
     var html2 = '';
@@ -66,6 +71,7 @@ function roundResult(i) {
     setContent(i);
 }
 
+// Adds all the buttons to the HTML page
 function buttons() {
     var html = '';
     for(var i = 1; i <= 50; i++) {
@@ -75,5 +81,7 @@ function buttons() {
     all.innerHTML = html;
 }
 
+// Calling the buttons function to get all the clickable buttons on HTML
 buttons();
+// Initially showing the result of the first round
 roundResult(0);
