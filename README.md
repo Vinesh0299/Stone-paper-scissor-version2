@@ -14,3 +14,9 @@ A simple HTML/CSS UI. <br />
 UI is divided into two parts. <br />
 First part contains a visual representation of choices made by players and a brief text description about that particular round. <br />
 Second part contains 50 buttons for each round and clicking them will update the contents of the first part. <br />
+
+## How to Setup
+This app uses a PHP server to get details about all the matches between the 4 Players, so first of all run the php server. <br />
+The Frontend makes a get request to localhost at port 8000 to get the data. <br />
+So you have to either change the url in sript.js file or start the php server at localhost:8000. <br />
+A fetch request is used to get data from server at the top of script.js file. <br />
